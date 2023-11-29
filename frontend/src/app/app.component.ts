@@ -1,14 +1,28 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Observable, map, startWith } from 'rxjs';
+
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'fake_aemet_fronted';
+  myControl = new FormControl('');
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]> = new Observable<string[]>();
+
+  ngOnInit() {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  }
 }
