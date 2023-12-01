@@ -1,5 +1,6 @@
 import express, { Application, Router } from 'express';
 
+import cors from 'cors';
 import compression from 'compression';
 import morgan from 'morgan';
 
@@ -12,6 +13,7 @@ class Express {
     const app = express();
 
     if (configuration.env === 'production' || configuration.env === 'development') {
+      app.use(cors());
       app.use(compression());
       app.use(morgan('dev'));
     }

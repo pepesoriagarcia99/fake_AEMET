@@ -14,14 +14,14 @@ class AemetService {
     this.apiKey = apiKey;
   }
 
-  async getTown(id: string): Promise<Array<AemetTown> | null> {
-    const res = await fetch(`${this.url}/maestro/municipio/${id}?api_key=${this.apiKey}`);
+  // async getTown(id: string): Promise<Array<AemetTown> | null> {
+  //   const res = await fetch(`${this.url}/maestro/municipio/${id}?api_key=${this.apiKey}`);
     
-    if (res.ok) return res.json();
-    else if (res.status === 404) return null;
+  //   if (res.ok) return res.json();
+  //   else if (res.status === 404) return null;
 
-    return Promise.reject({ error: "Something wrong happened" });
-  }
+  //   return Promise.reject({ error: "Something wrong happened" });
+  // }
 
   async listTowns(): Promise<Array<AemetTown>> {
     const res = await fetch(`${this.url}/maestro/municipios?api_key=${this.apiKey}`);

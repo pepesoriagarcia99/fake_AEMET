@@ -1,6 +1,7 @@
 import { Router } from "express";
 
-import { getOneTown, listTowns } from "./towns.service";
+import cache from "../../services/cache";
+import { listTowns } from "./towns.service";
 
 const router = Router();
 
@@ -13,8 +14,8 @@ const router = Router();
 //  * @apiSuccess {Object} return list of user files.
 //  * @apiError (500) ServerError Swift client error, Swift response status code 4XX or 5XX.
 //  */
-router.get("/", listTowns);
+router.get("/", cache, listTowns);
 
-router.get("/:id", getOneTown);
+// router.get("/:id", getOneTown);
 
 export default router;
