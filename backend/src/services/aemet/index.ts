@@ -1,8 +1,11 @@
-import configuration from "../../configuration";
-import { AemetPrediction } from "../../models/AemetPrediction.model";
-import { AemetTown } from "../../models/AemetTown.model";
+import iconv from 'iconv-lite';
 
-const { aemet: {url, apikey} } = configuration;
+
+import { AemetPrediction } from "../../models/AemetPrediction.model";
+import { AemetTown } from '../../models/AemetTown.model';
+
+import configuration from "../../configuration";
+const { aemet: { url, apikey } } = configuration;
 
 class AemetService {
   readonly url: string;
@@ -14,19 +17,23 @@ class AemetService {
     this.apiKey = apiKey;
   }
 
-  // async getTown(id: string): Promise<Array<AemetTown> | null> {
-  //   const res = await fetch(`${this.url}/maestro/municipio/${id}?api_key=${this.apiKey}`);
-    
-  //   if (res.ok) return res.json();
-  //   else if (res.status === 404) return null;
-
-  //   return Promise.reject({ error: "Something wrong happened" });
-  // }
-
+  // Array<AemetTown>
   async listTowns(): Promise<Array<AemetTown>> {
-    const res = await fetch(`${this.url}/maestro/municipios?api_key=${this.apiKey}`);
+    const res = await fetch(`${this.url}/maestro/municipios?api_key=${this.apiKey}`, {
+      headers: {
+        'Accept': 'text/plain',
+        'Content-Type': 'text/plain;charset=ISO-8859-15',
+        'Accept-Charset': 'ISO-8859-15'
+      }
+    });
 
-    if (res.ok) return res.json();
+    if (res.ok) {
+      const buffer = await res.arrayBuffer();
+      const data = iconv.decode(Buffer.from(buffer), 'ISO-8859-15');
+
+      return JSON.parse(data)
+    }
+
     return Promise.reject({ error: "Something wrong happened" });
   }
 
@@ -36,9 +43,9 @@ class AemetService {
     if (res.ok) {
       const partialPrediction = await res.json()
 
-      if(partialPrediction.estado === 200) {
+      if (partialPrediction.estado === 200) {
         const prediction = await fetch(partialPrediction.datos);
-        if(prediction.ok) return prediction.json();
+        if (prediction.ok) return prediction.json();
       }
     };
     return Promise.reject({ error: "Something wrong happened" });

@@ -46,10 +46,12 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTooltipModule} from "@angular/material/tooltip";
 import {MatTreeModule} from "@angular/material/tree";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [],
   imports: [
+    InfiniteScrollModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -71,7 +73,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     // MatStepperModule,
     // MatDatepickerModule,
     // MatDialogModule,
-    // MatDividerModule,
+    MatDividerModule,
     // MatExpansionModule,
     // MatGridListModule,
     MatIconModule,
@@ -81,10 +83,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     // MatNativeDateModule,
     // MatPaginatorModule,
     // MatProgressBarModule,
-    // MatProgressSpinnerModule,
+    MatProgressSpinnerModule,
     // MatRadioModule,
     // MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     // MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,
@@ -120,7 +122,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     // MatStepperModule,
     // MatDatepickerModule,
     // MatDialogModule,
-    // MatDividerModule,
+    MatDividerModule,
     // MatExpansionModule,
     // MatGridListModule,
     MatIconModule,
@@ -130,10 +132,10 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     // MatNativeDateModule,
     // MatPaginatorModule,
     // MatProgressBarModule,
-    // MatProgressSpinnerModule,
+    MatProgressSpinnerModule,
     // MatRadioModule,
     // MatRippleModule,
-    // MatSelectModule,
+    MatSelectModule,
     // MatSidenavModule,
     // MatSliderModule,
     // MatSlideToggleModule,

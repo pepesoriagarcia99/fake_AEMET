@@ -1,52 +1,85 @@
-<main>
-  <div class="flex flex-col h-full gap-2">
-    <div class="flex flex-row gap-4 items-center">
-      <!-- <form>
-        <mat-form-field>
-          <mat-label>Number</mat-label>
-          <input type="text"
-                 placeholder="Pick one"
-                 aria-label="Number"
-                 matInput
-                 [formControl]="myControl"
-                 [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            @for (option of filteredOptions | async; track option) {
-              <mat-option [value]="option">{{option}}</mat-option>
+<main class="min-h-screen flex items-center justify-center">
+  <div class="card">
+    <div class="content">
+      <div class="grid grid-cols-9 gap-8">
+        <div class="col-span-5">
+          <mat-form-field appearance="outline" class="w-full">
+            <input
+              type="search"
+              matInput
+              [formControl]="town"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete
+              autoActiveFirstOption
+              #auto="matAutocomplete"
+              (optionSelected)="selectOption($event.option.value)"
+            >
+              @for (option of options; track option) {
+              <mat-option [value]="option.name">{{ option.name }}</mat-option>
+              } @empty { <mat-option disabled>No results found</mat-option>}
+            </mat-autocomplete>
+            <mat-icon matSuffix style="color: blue">search</mat-icon>
+          </mat-form-field>
+        </div>
+        <div class="col-span-4">
+          <mat-form-field appearance="outline">
+            <mat-select
+              [formControl]="temperatureUnit"
+              (selectionChange)="getPrediction()"
+            >
+              <mat-option value="G_CEL">celsius</mat-option>
+              <mat-option value="G_FAH">fahrenheit</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+
+      @if(prediction) {
+        <div>
+          <h1>{{ month }}</h1>
+          <h6>{{ formattedDate }}</h6>
+        </div>
+  
+        <div class="grid grid-cols-4 gap-4">
+          <div class="col-span-2">{{ prediction.mediumTemperature }}</div>
+          <div class="col-span-2">imagen</div>
+        </div>
+  
+        <div class="grid grid-cols-4 gap-4 mb-2">
+          @for (item of prediction.precipitationProbability; track item.probability) {
+            <div class="col-span-1">{{item.probability}}</div>
             }
-          </mat-autocomplete>
-          <mat-icon matSuffix>mode_edit</mat-icon>
-        </mat-form-field>
-      </form> -->
-      <mat-form-field>
-        <input
-          type="search"
-          matInput
-          placeholder="Filtro por nombre"
-          name="search"
-        />
-        <button matSuffix mat-button><mat-icon>search</mat-icon></button>
-      </mat-form-field>
-    </div>
+        </div>
+  
+        <mat-divider></mat-divider>
+  
+        <div class="grid grid-cols-4 gap-4 mt-4">
+          @for (item of prediction.precipitationProbability; track item.period;) {
+            <div class="col-span-1">
+              <div class="grid grid-cols-3 gap-1">
+                @if($index === 0) {
+                  <div class="vl"></div>
+                }
+                <span>{{item.period}}</span>
+                <div class="vl"></div>
+              </div>
+            </div>
+            }   
+        </div>
+      }
+      @else if(loading === true && prediction === undefined) {
+        <mat-spinner></mat-spinner>
+      }
+      @else {
+        <span>no hay datos</span>
+      }
 
-    <div class="flex flex-row gap-4 items-center">
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-    </div>
 
-    <div class="flex flex-row gap-4 items-center">
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
-      <p>pepe</p>
+
+
+
     </div>
   </div>
 </main>

@@ -1,0 +1,26 @@
+main {
+    /* display: flex;
+    flex-direction: column; */
+
+    .card {
+        min-width: 500px;
+        min-height: 800px;
+        border: rgb(85, 85, 85) 1px ridge;
+        border-radius: 5px;
+        box-shadow: 10px 5px 5px rgb(85, 85, 85);
+    }
+
+    .content {
+        margin: 18px 18px 18px 18px;
+    }
+
+    mat-spinner {
+        max-width: 20px; 
+        max-height: 20px
+    }
+}
+
+.vl {
+    border-left: 1px solid rgb(0, 0, 0);
+    height: 25px;
+  }

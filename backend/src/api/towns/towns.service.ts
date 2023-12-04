@@ -2,12 +2,13 @@ import { NextFunction, Response, Request } from 'express';
 
 import AemetService from '../../services/aemet';
 import { cache } from '../../services/cache';
-import pagination from '../../services/pagination';
+// import pagination from '../../services/pagination';
 
 import { Town } from '../../models/Town.model';
+import { AemetTown } from '../../models/AemetTown.model';
 
 export const listTowns = (
-  { query, originalUrl, headers }: Request,
+  { query, originalUrl }: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
@@ -15,29 +16,18 @@ export const listTowns = (
 
   return AemetService.listTowns()
     .then((aemetTowns) => {
-      const towns: Array<Town> = aemetTowns
-        .filter((t) => t.nombre.toLowerCase().includes(name.toLowerCase()))
-        .map((t) => ({ code: t.id.replace('id', ''), name: t.nombre }));
+      const towns: Array<Town> =
+        aemetTowns
+          .filter((t: AemetTown) => t.nombre.toLowerCase().includes(name.toLowerCase()))
+          .map((t: AemetTown) => ({ code: t.id.replace('id', ''), name: t.nombre }));
 
       if (!cache.has(originalUrl)) {
         cache.set(originalUrl, towns);
       }
-
-      res.status(200).json(pagination(headers, towns)).end();
+      res.status(200).json(towns).end();
     })
-    .catch(next);
+    .catch(err => {
+      console.log(err);
+      res.status(500).end();
+    });
 };
-
-// export const getOneTown = ({ params }: Request, res: Response, next: NextFunction): Promise<void> => {
-//   const { id } = params;
-//   return AemetService.getTown(id)
-//     .then((town) => {
-//       if (!town || (Array.isArray(town) && town.length === 0)) {
-//         res.status(404).end();
-//         return;
-//       }
-//       const { id, nombre } = town[0];
-//       res.json({ code: id, name: nombre }).end();
-//     })
-//     .catch(next);
-// };
