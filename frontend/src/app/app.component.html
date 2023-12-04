@@ -37,14 +37,14 @@
 
 
       @if(prediction) {
-        <div>
-          <h1>{{ month }}</h1>
-          <h6>{{ formattedDate }}</h6>
+        <div class="date">
+          <div class="month">{{ month }}</div>
+          <div class="date">{{ formattedDate }}</div>
         </div>
   
-        <div class="grid grid-cols-4 gap-4">
-          <div class="col-span-2">{{ prediction.mediumTemperature }}</div>
-          <div class="col-span-2">imagen</div>
+        <div class="grid grid-cols-4 gap-4 temperature">
+          <div class="col-span-2 temperature">{{ prediction.mediumTemperature }} {{symbol}}</div>
+          <div class="col-span-2"> <!--imagen --> </div>
         </div>
   
         <div class="grid grid-cols-4 gap-4 mb-2">

@@ -10,6 +10,14 @@ main {
         box-shadow: 10px 5px 5px rgb(85, 85, 85);
     }
 
+    .date {
+        min-height: 100px;
+    }
+
+    .temperature {
+        min-height: 200px;
+    }
+
     .content {
         margin: 18px 18px 18px 18px;
     }
@@ -17,6 +25,27 @@ main {
     mat-spinner {
         max-width: 20px; 
         max-height: 20px
+    }
+
+    .temperature {
+        font-size: 100px;
+        font-weight: 300;
+        color: rgb(85, 85, 85);
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .month {
+        font-size: 80px;
+        font-weight: 100;
+        color: rgb(85, 85, 85);    
+    }
+
+    .date {
+        font-size: 30px;
+        font-weight: 70;
+        color: rgb(40, 40, 40);  
+        margin-top: 48px;  
     }
 }
 

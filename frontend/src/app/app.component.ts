@@ -104,4 +104,8 @@ export class AppComponent {
     const m = this.#date.format('MMMM');
     return m.charAt(0).toUpperCase() + m.slice(1);
   }
+
+  get symbol() {
+    return this.temperatureUnit.value === 'G_CEL' ? '°C' : '°F';
+  }
 }
